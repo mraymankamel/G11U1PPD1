@@ -14,14 +14,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <style>
         /* 🏛️ التصميم الأكاديمي المسطح (Flat Academic / Oxford Style) */
         :root { 
-            --bg-main: #F4F6F8; /* رمادي فاتح مريح جداً */
+            --bg-main: #F4F6F8; 
             --container-bg: #FFFFFF;
-            --text-main: #0F172A; /* كحلي صارم */
+            --text-main: #0F172A; 
             --text-muted: #475569; 
-            --accent-main: #B48600; /* ذهبي كلاسيكي */
+            --accent-main: #B48600; 
             --navy-blue: #1E293B;
             --solid-shadow: #0F172A;
             --border-light: #CBD5E1;
@@ -30,28 +31,28 @@
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none;}
-        input, .review-item *, .explanation-box * { user-select: text; -webkit-user-select: text;}
+        input, .review-item *, .explanation-box *, .print-options-grid * { user-select: text; -webkit-user-select: text;}
         
         body { 
             font-family: 'Cairo', sans-serif; 
             background-color: var(--bg-main);
             background-image: radial-gradient(var(--border-light) 1px, transparent 1px);
-            background-size: 20px 20px; /* تصميم ورق المربعات الأكاديمي */
+            background-size: 20px 20px; 
             color: var(--text-main); 
             direction: rtl; 
             min-height: 100vh; 
             padding: 40px 10px; 
+            overflow-x: hidden;
         }
 
-        /* 📜 الحاوية الرئيسية (شكل ورقة امتحان رسمية) */
         .main-container { 
             width: 100%; max-width: 850px; margin: 0 auto; 
             background: var(--container-bg); 
-            border-radius: 8px; /* حواف شبه حادة */
+            border-radius: 8px; 
             border: 2px solid var(--text-main);
-            box-shadow: 8px 8px 0px var(--solid-shadow); /* ظل صلب كلاسيكي */
+            box-shadow: 8px 8px 0px var(--solid-shadow); 
             display: flex; flex-direction: column; 
-            position: relative; z-index: 1;
+            position: relative; z-index: 10;
             padding-bottom: 30px;
         }
         
@@ -64,20 +65,22 @@
             border-radius: 8px 8px 0 0;
         }
         
+        /* 🦅 اللوجو بالمعايير الهندسية الدستورية */
         header img { 
             width: 120px; height: 120px; aspect-ratio: 1 / 1; object-fit: contain; 
-            background: #fff; padding: 5px; border-radius: 0; /* شكل مربع كلاسيكي */
+            background: #FFFFFF !important; padding: 5px; 
+            border-radius: 50% !important; /* إجبار الدائري */
             border: 2px solid var(--text-main);
             box-shadow: 4px 4px 0px var(--accent-main);
             margin-bottom: 20px; flex-shrink: 0; 
-            transition: 0.2s; cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
         }
-        header img:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--accent-main);}
+        header img:hover { transform: scale(1.08) rotate(5deg); box-shadow: 6px 6px 0px var(--accent-main);}
         
         header h1 { font-family: 'Outfit', sans-serif; font-size: 32px; margin: 0 0 5px 0; color: var(--text-main); font-weight: 900; letter-spacing: -1px; direction: ltr;}
         header p { margin: 0 0 10px 0; font-size: 16px; font-weight: 800; color: var(--text-muted); direction: ltr; text-transform: uppercase; letter-spacing: 1px;}
+        header .slogan { font-family: 'Outfit', sans-serif; font-size: 16px; font-style: italic; color: var(--accent-main); margin: 5px 0 10px 0; unicode-bidi: isolate; direction: ltr; font-weight: 800;}
         
-        /* 📞 رقم الموبايل */
         .badge-info { 
             font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 900; color: #fff; 
             background: var(--text-main); 
@@ -89,7 +92,7 @@
 
         .timer-wrapper-fixed {
             position: absolute; top: 25px; left: 25px; right: auto; 
-            display: flex; align-items: center; gap: 10px; z-index: 10; direction: ltr;
+            display: flex; align-items: center; gap: 10px; z-index: 20; direction: ltr;
         }
         
         .timer-box { 
@@ -132,7 +135,7 @@
             direction: rtl; border: 2px solid var(--text-main); border-right: 8px solid var(--accent-main);
         }
         .cheer-bubble img { 
-            width: 42px; height: 42px; border-radius: 0; border: 2px solid var(--text-main); 
+            width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--text-main); 
             padding: 2px; flex-shrink: 0; background: var(--bg-main);
         }
         .cheer-text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
@@ -152,8 +155,6 @@
         }
         .welcome-card h3 { color: var(--text-main); font-size: 26px; margin-bottom: 15px; font-weight: 900;}
         .welcome-card p { font-size: 16px; line-height: 2; color: var(--text-muted); font-weight: 700;}
-
-        #time-attack-btn { display: none; } /* إخفاء وضع التحدي السريع لتركيز أعلى */
 
         .avatar-grid { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;}
         .avatar-option { 
@@ -203,7 +204,6 @@
             border: 2px solid var(--text-main); box-shadow: 8px 8px 0px var(--solid-shadow);
         }
         
-        /* 🔊 صندوق السؤال */
         .question-text { 
             display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start; gap: 20px; 
             margin-bottom: 35px; direction: ltr; 
@@ -250,6 +250,9 @@
         }
         .btn:active:not(:disabled) { transform: translate(4px, 4px); box-shadow: 0px 0px 0px var(--solid-shadow); }
         
+        .btn-outline { background: transparent; color: var(--text-main); border-color: var(--text-main); }
+        .btn-outline:hover { background: var(--text-main); color: #fff; box-shadow: 4px 4px 0px var(--accent-main);}
+
         .btn-primary { 
             background: var(--text-main); color: #fff; width: 100%; font-size: 18px;
             box-shadow: 6px 6px 0px var(--accent-main);
@@ -258,25 +261,8 @@
         .btn-primary:disabled { opacity: 0.5; cursor: wait; transform: none; box-shadow: none;}
 
         .btn-next { background: var(--accent-main); color: #fff; flex: 1; font-size: 18px; box-shadow: 4px 4px 0px var(--text-main);}
-        
         .btn-prev { color: var(--text-muted); min-width: 140px; border-color: var(--border-light); box-shadow: 4px 4px 0px var(--border-light);}
         .btn-prev:disabled { opacity: 0.3; cursor: not-allowed; box-shadow: none; transform: none;}
-
-        .scratch-container { position: relative; display: inline-block; margin-top: 30px; border-radius: 4px; overflow: hidden; box-shadow: 8px 8px 0px var(--text-main); user-select: none; border: 2px solid var(--text-main);}
-        .badge-award { 
-            display: inline-block; background: var(--text-main); 
-            color: #fff; padding: 25px 40px; font-weight: 900; font-size: 22px; min-width: 300px; min-height: 80px;
-            font-family: 'Outfit', 'Cairo', sans-serif; text-transform: uppercase; letter-spacing: 1px;
-        }
-        #scratch-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: crosshair; z-index: 5; }
-
-        @media print {
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-shadow: none !important;}
-            header img, .result-actions, .timer-wrapper-fixed, .btn-speak, .cheer-wrapper, #cheat-modal { display: none !important; }
-            body { background: #fff !important; color: #000 !important;}
-            .main-container { box-shadow: none !important; border: 2px solid #000 !important; background: #fff !important; margin: 0 !important; width: 100% !important;}
-            .review-item, .explanation-box { border: 2px solid #000 !important; background: #fff !important; box-shadow: none !important;}
-        }
 
         #result-screen { display: none; direction: rtl; }
         .score-card { 
@@ -295,8 +281,16 @@
         #score-percent-text { font-family: 'Outfit', 'Cairo', sans-serif; font-size: 24px; font-weight: 900; color: var(--text-main); margin-bottom: 12px;}
         #student-display-name { color: var(--text-muted); font-size: 28px; margin-bottom: 15px; font-family: 'Cairo', sans-serif; font-weight: 900;}
 
+        .scratch-container { position: relative; display: inline-block; margin-top: 30px; border-radius: 4px; overflow: hidden; box-shadow: 8px 8px 0px var(--text-main); user-select: none; border: 2px solid var(--text-main);}
+        .badge-award { 
+            display: inline-block; background: var(--text-main); 
+            color: #fff; padding: 25px 40px; font-weight: 900; font-size: 22px; min-width: 300px; min-height: 80px;
+            font-family: 'Outfit', 'Cairo', sans-serif; text-transform: uppercase; letter-spacing: 1px;
+        }
+        #scratch-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: crosshair; z-index: 5; }
+
         .result-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px;}
-        .result-actions .btn { width: 100%; font-size: 16px; padding: 20px; border-radius: 4px;}
+        .result-actions .btn { width: 100%; font-size: 15px; padding: 20px; border-radius: 4px;}
         
         #cert-btn { grid-column: span 2; background: var(--accent-main); color: #fff; border-color: var(--text-main); box-shadow: 6px 6px 0px var(--text-main);}
         .btn-facebook { grid-column: span 2; background: #1877F2; color: #fff; border-color: #0F172A; box-shadow: 6px 6px 0px #0F172A; }
@@ -313,14 +307,13 @@
             background: #F8FAFC; border-radius: 4px; padding: 20px 25px; margin-top: 25px; 
             border: 2px solid var(--text-main); border-right: 6px solid var(--accent-main); display: flex; flex-direction: column; gap: 12px; 
         }
-        .explanation-box .exp-en { direction: ltr; text-align: left; color: var(--text-muted); font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.6; }
-        .explanation-box .exp-ar { direction: rtl; text-align: right; color: var(--text-main); border-top: 2px dashed var(--border-light); padding-top: 15px; font-weight: 800; font-size: 16px; line-height: 1.8; }
 
-        /* 🛡️ نظام الحماية (Anti-Cheat) */
-        #cheat-modal {
+        /* 🛡️ نظام الحماية (Anti-Cheat & Pause) */
+        #cheat-modal, #pause-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(15, 23, 42, 0.95); z-index: 999999; align-items: center; 
             justify-content: center; flex-direction: column; text-align: center;
+            backdrop-filter: blur(15px);
         }
         .cheat-content {
             background: #fff; padding: 50px; border-radius: 8px; 
@@ -329,6 +322,79 @@
         }
         .cheat-content h1 { color: var(--error-color); font-size: 38px; margin-bottom: 20px; font-family: 'Cairo', sans-serif; font-weight: 900;}
         .cheat-content p { color: var(--text-main); font-size: 20px; line-height: 1.8; font-weight: 700;}
+
+        /* ========================================================
+           🖨️ PRINT MASTER ENGINE V.MAX (A4, Header, Footer, Watermark)
+           ======================================================== */
+        #print-container { display: none; }
+
+        @media print {
+            @page { size: A4; margin: 0; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-shadow: none !important;}
+            body { background: #fff !important; color: #000 !important; margin: 0; padding: 0; background-image: none !important; }
+            .no-print, #app-container, .bg-orb, .bg-grid, header img, .result-actions, .timer-wrapper-fixed, .btn-speak, .cheer-wrapper, #cheat-modal, #pause-modal { display: none !important; }
+            
+            #print-container { display: block !important; width: 100%; max-width: 210mm; margin: 0 auto; background: transparent; }
+            
+            table.print-table { width: 100%; border-collapse: collapse; }
+            thead.print-thead { display: table-header-group; }
+            tfoot.print-tfoot { display: table-footer-group; }
+            tbody.print-tbody { display: table-row-group; }
+            
+            .header-content { display: flex; align-items: center; gap: 15px; padding: 15mm 15mm 5mm; border-bottom: 2px solid #000; margin-bottom: 5mm; justify-content: flex-start; text-align: left; direction: ltr; }
+            .header-content img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #000; }
+            .header-content div strong { font-family: 'Outfit'; font-size: 26px; font-weight: 900; display: block; color: #000; line-height: 1.2; text-align: left; }
+            .header-content div span { font-family: 'Outfit'; font-size: 14px; color: #333; text-transform: uppercase; letter-spacing: 1px; text-align: left; display: block;}
+
+            .footer-content { display: flex; justify-content: space-between; align-items: center; padding: 5mm 15mm 15mm; border-top: 2px solid #000; font-family: 'Outfit'; font-weight: bold; font-size: 14px; color: #000; direction: ltr;}
+            .page-number:after { counter-increment: page; content: "Page " counter(page); }
+
+            .print-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.08; z-index: 9999; pointer-events: none; text-align: center; }
+            .print-watermark img { width: 350px; height: 350px; border-radius: 50%; filter: grayscale(100%); display: block; margin: 0 auto;}
+            
+            .exam-title-box { text-align: left; direction: ltr; margin-bottom: 10mm; padding: 0 15mm;}
+            .exam-title-box h2 { font-family: 'Outfit'; font-size: 28px; font-weight: 900; color: #000; text-transform: uppercase; margin-bottom: 15px; text-align: left;}
+            .student-info-row { display: flex; align-items: flex-end; justify-content: flex-start; gap: 30px; font-family: 'Outfit', 'Cairo'; font-size: 16px; font-weight: 700; width: 100%; direction: ltr; text-align: left; }
+            .info-field { display: flex; align-items: flex-end; }
+            .name-field { flex: 2.5; }
+            .score-field { flex: 1; }
+            .info-label { margin-right: 10px; white-space: nowrap; padding-bottom: 2px; }
+            .info-line { border-bottom: 2px dotted #000; flex: 1; min-height: 20px; padding-bottom: 2px; text-align: center; color: #000; font-size: 18px;}
+
+            .print-q-container { padding: 0 15mm; }
+            .print-q-item { page-break-inside: avoid; margin-bottom: 25px; font-family: 'Outfit', 'Cairo'; }
+            .print-q-text { font-size: 18px; font-weight: 800; color: #000; margin-bottom: 12px; direction: ltr; text-align: left; display: block; width: 100%; }
+            .print-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; direction: ltr; text-align: left;}
+            .print-opt-item { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: #000;}
+            .print-opt-letter { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #000; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px;}
+            .print-rule-box { display: none; }
+
+            /* MODE 1: Blank Exam */
+            body.print-blank-mode .ui-ans-box, body.print-blank-mode .explanation-box { display: none !important; }
+            body.print-blank-mode .print-options-grid { display: grid !important; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; font-family: 'Outfit'; font-size: 16px; font-weight: 600; }
+            
+            /* MODE 2: Teacher Notes / Smart Notes */
+            body.print-notes-mode #print-title-out::after { content: " (Model Answer & Notes)"; font-size: 16px; color: #555; display: block; margin-top: 5px; text-transform: none;}
+            body.print-notes-mode .print-opt-item.is-correct-opt { display: flex !important; background: #f0fdf4 !important; border: 2px solid #059669 !important; padding: 10px; border-radius: 4px;}
+            body.print-notes-mode .print-opt-item.is-correct-opt .print-opt-letter { background: #059669 !important; color: #fff !important; border-color: #059669 !important;}
+            body.print-notes-mode .print-rule-box { 
+                display: block !important; background: #f8fafc !important; border: 2px dashed #0F172A !important; 
+                padding: 15px !important; border-radius: 4px !important; margin-top: 15px !important; 
+            }
+            body.print-notes-mode .exp-en { direction: ltr; text-align: left; font-family: 'Outfit', sans-serif; font-size: 14px; color: #475569 !important; font-weight: 700; margin-bottom: 6px; }
+            body.print-notes-mode .exp-ar { direction: rtl; text-align: right; font-family: 'Cairo', sans-serif; font-size: 14px; color: #0F172A !important; font-weight: 800; border-top: 2px dashed #CBD5E1; padding-top: 8px; margin-top: 8px;}
+            body.print-notes-mode .omr-container { display: none !important; } 
+
+            /* OMR */
+            .omr-container { display: none; page-break-before: always; padding: 10mm 15mm; font-family: 'Outfit'; }
+            body.omr-active .omr-container { display: block !important; }
+            .omr-title { text-align: center; font-size: 24px; font-weight: 900; margin-bottom: 20px; text-transform: uppercase; direction: ltr;}
+            .omr-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px 30px; direction: ltr;}
+            .omr-row { display: flex; align-items: center; gap: 15px; }
+            .omr-q-num { font-weight: 900; font-size: 16px; width: 25px; text-align: right; }
+            .omr-bubbles { display: flex; gap: 5px; }
+            .omr-bubble { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #000; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; }
+        }
 
         @media (max-width: 768px) {
             body { padding: 15px 5px; }
@@ -358,6 +424,7 @@
             
             .option-item { font-size: 15px; padding: 16px; }
             
+            /* 📱 Mobile Thumb-Reach */
             .action-btns { flex-direction: column-reverse; gap: 15px; margin-top: 30px;}
             .btn { width: 100%; font-size: 15px; padding: 16px; box-shadow: 3px 3px 0px var(--solid-shadow);}
             
@@ -378,15 +445,76 @@
     <div class="cheat-content">
         <h1>🚨 تنبيه أمني!</h1>
         <p id="cheat-msg">لقد تم رصد خروجك من شاشة التحدي.</p>
-        <button onclick="document.getElementById('cheat-modal').style.display='none'" class="btn" style="margin-top:30px; color:var(--error-color); width:100%; border-color:var(--error-color); box-shadow: 4px 4px 0px var(--error-color);">فهمت، أعتذر</button>
+        <button onclick="document.getElementById('cheat-modal').style.display='none'" class="btn btn-primary" style="margin-top:30px; background:var(--error-color); width:100%; border-color:var(--text-main); box-shadow: 6px 6px 0px var(--text-main);">فهمت، أعتذر</button>
     </div>
 </div>
 
+<div id="pause-modal">
+    <div class="cheat-content" style="border-color: var(--accent-main); box-shadow: 10px 10px 0px var(--accent-main);">
+        <h1 style="color: var(--accent-main);">⏸️ إيقاف مؤقت</h1>
+        <p id="pause-count-msg" style="margin-bottom: 20px;"></p>
+        <p style="font-size: 16px; margin-bottom: 30px;">رادار المراقبة لا يزال يعمل. الخروج من المتصفح سيسجل تحذيراً.</p>
+        <button type="button" onclick="togglePause()" class="btn btn-primary">▶️ استئناف التحدي</button>
+    </div>
+</div>
+
+<!-- ========================================================
+     🖨️ PRINT MASTER ENGINE V.MAX CONTAINER
+     ======================================================== -->
+<div id="print-container">
+    <div class="print-watermark">
+        <img src="https://lh3.googleusercontent.com/d/1BqwA44F0BAwWMSwBnBeDIkfkNgBEtif-" alt="Watermark">
+    </div>
+    <table class="print-table">
+        <thead class="print-thead">
+            <tr>
+                <td>
+                    <div class="header-content">
+                        <img src="https://lh3.googleusercontent.com/d/1BqwA44F0BAwWMSwBnBeDIkfkNgBEtif-" alt="Logo">
+                        <div><strong>Mr. Ayman Kamel</strong><span>English Language Educator</span></div>
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tbody class="print-tbody">
+            <tr>
+                <td>
+                    <div class="exam-title-box">
+                        <h2 id="print-title-out">ACADEMIC CHALLENGE - CODE: REL-CLAUSES-40</h2>
+                        <div class="student-info-row">
+                            <div class="info-field name-field"><span class="info-label">Student Name:</span><div class="info-line" id="print-doc-student"></div></div>
+                            <div class="info-field score-field"><span class="info-label">Score:</span><div class="info-line" id="print-score-out">/ 40</div></div>
+                        </div>
+                    </div>
+                    
+                    <div class="print-q-container" id="print-q-list"></div>
+
+                    <div class="omr-container">
+                        <div class="omr-title">OMR Bubble Sheet</div>
+                        <div class="omr-grid" id="omr-grid"></div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="print-tfoot">
+            <tr>
+                <td>
+                    <div class="footer-content">
+                        <div>📞 01284749899</div>
+                        <div class="page-number"></div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
 <div class="main-container" id="app-container">
-    <header>
+    <header class="no-print">
         <!-- ⏱️ التايمر (60 دقيقة) -->
         <div class="timer-wrapper-fixed" id="timer-container" style="display: none;">
             <div class="timer-box" id="timer-box"><div class="time-dot"></div><span id="timer-text">60:00</span></div>
+            <button type="button" class="timer-toggle-btn" id="btn-pause" onclick="togglePause()" title="إيقاف مؤقت">⏸️</button>
             <button type="button" class="timer-toggle-btn" id="btn-timer-view" onclick="toggleTimerView()" title="إخفاء/إظهار الوقت">👁️</button>
         </div>
 
@@ -401,15 +529,16 @@
             </div>
         </div>
 
-        <img src="https://lh3.googleusercontent.com/d/1BqwA44F0BAwWMSwBnBeDIkfkNgBEtif-" alt="Mr. Ayman Kamel Logo">
+        <!-- 🦅 اللوجو بالمعايير الدستورية ومفاجأة 5 نقرات -->
+        <img src="https://lh3.googleusercontent.com/d/1BqwA44F0BAwWMSwBnBeDIkfkNgBEtif-" alt="Mr. Ayman Kamel Logo" onclick="triggerEasterEgg()">
         
         <h1>Mr. Ayman Kamel</h1>
         <p>English Language Educator</p>
-        <p class="slogan">"Let's learn together."</p>
+        <p class="slogan">"Let's learn together!"</p>
         <div class="badge-info">📞 01284749899</div>
     </header>
 
-    <div class="content-body">
+    <div class="content-body no-print">
         <div id="start-screen">
             <!-- 🌟 رسالة الترحيب الأكاديمية والمحفزة -->
             <div class="welcome-card">
@@ -434,7 +563,7 @@
         <div id="quiz-screen">
             <div class="stats-bar">
                 <span id="player-badge">🔴 LIVE ASSESSMENT</span>
-                <span id="progress-count">Q: 1</span>
+                <span id="progress-count">Q: 1 / 40</span>
             </div>
 
             <div class="energy-bar-container">
@@ -474,13 +603,16 @@
 
                 <p id="score-details" style="font-size: 18px; font-weight: 800; margin-top: 30px; color: var(--text-main);"></p>
             </div>
+            
             <div class="result-actions">
+                <button type="button" class="btn btn-outline" onclick="printBlankExam()">🖨️ طباعة كاختبار ورقي</button>
+                <button type="button" class="btn btn-outline" onclick="printSmartNotes()">📥 مذكرة الأخطاء (شرح)</button>
                 <button type="button" class="btn btn-facebook" onclick="window.open('https://www.facebook.com/AymanKamelOfficial', '_blank')">👍 تابع صفحتنا على فيسبوك</button>
                 <button type="button" class="btn btn-primary" id="cert-btn" onclick="downloadCertificate()" style="display: none;">📜 طباعة شهادة الاعتماد</button>
                 <button type="button" class="btn btn-whatsapp" onclick="shareToWhatsApp()">💬 إرسال التقرير (واتساب)</button>
-                <button type="button" class="btn btn-print" onclick="window.print()">🖨️ طباعة تقرير الأخطاء</button>
-                <button type="button" class="btn btn-reload" onclick="location.reload()">🔄 إعادة التقييم</button>
+                <button type="button" class="btn btn-outline" style="border-color: var(--text-main);" onclick="location.reload()">🔄 إعادة التقييم</button>
             </div>
+            
             <h3 style="text-align: right; color: var(--text-main); margin-top: 40px; border-bottom: 3px solid var(--text-main); padding-bottom: 15px; font-weight: 900;">📂 المراجعة الأكاديمية الدقيقة:</h3>
             <div id="review-list" style="margin-top: 30px;"></div>
         </div>
@@ -544,7 +676,8 @@ function soundBossWin() {
 
 function speakQuestion() {
     if ('speechSynthesis' in window) {
-        let text = quizData[currentQuestion].q.replace(/_+/g, "blank");
+        window.speechSynthesis.cancel();
+        let text = quizData[currentQuestion].originalQ.replace(/_+/g, "blank").replace(/-+/g, "blank").replace(/\.{3,}/g, "blank");
         let msg = new SpeechSynthesisUtterance(text);
         msg.lang = 'en-US';
         msg.rate = 0.85;
@@ -555,6 +688,7 @@ function speakQuestion() {
 function initScratchCard() {
     const container = document.getElementById("badge-award-box");
     const canvas = document.getElementById("scratch-canvas");
+    if(!container || !canvas) return;
     const ctx = canvas.getContext("2d");
     
     canvas.width = container.offsetWidth;
@@ -608,6 +742,7 @@ const cheers = [
 let lastCheerIndex = -1; 
 function triggerTeacherCheer() {
     const wrapper = document.getElementById("cheer-wrapper");
+    if(!wrapper) return;
     
     let randomIndex;
     do {
@@ -623,7 +758,53 @@ function triggerTeacherCheer() {
     setTimeout(() => { wrapper.classList.remove("show"); }, 3500);
 }
 
-/* 🌟 40 سؤال عن Relative Pronouns & Participles */
+/* 🦅 EASTER EGG (Logo 5 Clicks with Confetti zIndex 999999) */
+let logoClicks = 0, logoClickTimer;
+function triggerEasterEgg() {
+    logoClicks++; clearTimeout(logoClickTimer);
+    logoClickTimer = setTimeout(() => { logoClicks = 0; }, 1500);
+    if(logoClicks >= 5) {
+        soundBossWin();
+        try {
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 300, spread: 150, origin: { y: 0.5 }, colors: ['#0F172A', '#B48600', '#FFFFFF'], zIndex: 999999 });
+            }
+        } catch(e){}
+        alert("💎 Flat Academic Theme Active (Masterpiece)! 💎"); 
+        logoClicks = 0; 
+    }
+}
+
+/* 🖨️ Print Master Engine Functions */
+function preparePrintData() {
+    const titleOut = document.getElementById("print-title-out");
+    const scoreOut = document.getElementById("print-score-out");
+    const docStudent = document.getElementById("print-doc-student");
+    if(titleOut) titleOut.innerText = "ACADEMIC CHALLENGE - CODE: REL-CLAUSES-40";
+    if(scoreOut) scoreOut.innerText = `${window.finalScore || 0} / 40`;
+    if(docStudent) docStudent.innerText = studentName;
+}
+
+function printBlankExam() {
+    preparePrintData();
+    document.body.classList.remove('print-notes-mode');
+    document.body.classList.add('print-blank-mode');
+    document.body.classList.add('omr-active'); 
+    window.print();
+    document.body.classList.remove('print-blank-mode');
+    document.body.classList.remove('omr-active');
+}
+
+function printSmartNotes() {
+    preparePrintData();
+    document.body.classList.remove('print-blank-mode');
+    document.body.classList.remove('omr-active'); 
+    document.body.classList.add('print-notes-mode');
+    window.print();
+    document.body.classList.remove('print-notes-mode');
+}
+
+/* 🔥 EXACT DATA ARRAY - 40 Questions (Relative Pronouns) 🔥 */
 const rawData = [
     { q: "The manager ______ interviewed me was very polite.", options: ["who", "whom", "which", "whose"], answer: 0, exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'manager' is a person and the subject. We use 'who' or 'that'.</div><div class='exp-ar'>✨ <b>الخلاصة:</b> المدير (عاقل فاعل) جاء بعده فعل، نستخدم who أو that.</div>" },
     { q: "The teacher ______ we saw yesterday is Mr. Ayman.", options: ["whom", "which", "whose", "where"], answer: 0, exp: "<div class='exp-en'>💡 <b>Explanation:</b> 'teacher' is object (followed by subject 'we'). We use 'whom/who/that'.</div><div class='exp-ar'>✨ <b>الخلاصة:</b> المعلم (عاقل مفعول) جاء بعده فاعل (we)، نختار whom.</div>" },
@@ -676,25 +857,23 @@ let isSubmitting = false;
 // 🛡️ الحماية الصامتة 
 let cheatWarnings = 0;
 const MAX_WARNINGS = 3;
+let pauseCount = 0;
+let isPaused = false;
 
 document.addEventListener("visibilitychange", () => {
     const quizScreen = document.getElementById("quiz-screen");
     if (document.hidden && quizScreen.style.display === "block" && !isSubmitting) {
         cheatWarnings++;
-        if (cheatWarnings >= MAX_WARNINGS) {
+        if (cheatWarnings > MAX_WARNINGS) {
             alert("🚨 تم سحب الورقة! نأسف، يجب الحفاظ على تركيزك بالكامل داخل التقييم.");
             calculateScore(); 
         } else {
-            showCheatModal(`تنبيه أكاديمي! \nلقد قمت بالخروج من الصفحة. \nهذا هو التحذير رقم (${cheatWarnings} من ${MAX_WARNINGS}). \nيرجى الحفاظ على تركيزك بالداخل لتجنب سحب الورقة.`);
+            document.getElementById('cheat-msg').innerText = `تنبيه أكاديمي! \nلقد قمت بالخروج من الصفحة. \nالتحذير رقم (${cheatWarnings} من ${MAX_WARNINGS}). \nفي المرة الرابعة سيتم سحب الورقة تلقائياً.`;
+            document.getElementById('cheat-modal').style.display = 'flex';
+            soundWrongTime(); 
         }
     }
 });
-
-function showCheatModal(msg) {
-    document.getElementById('cheat-msg').innerText = msg;
-    document.getElementById('cheat-modal').style.display = 'flex';
-    soundWrongTime(); 
-}
 
 document.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -717,6 +896,7 @@ function shuffleOptions() {
     quizData.sort(() => Math.random() - 0.5); 
     
     quizData.forEach((item, index) => {
+        item.originalQ = item.q;
         item.q = `${index + 1}. ` + item.q.replace(/^\d+\.\s*/, ''); 
         
         let correctText = item.options[item.answer];
@@ -829,7 +1009,7 @@ function nextQuestion(force = false) {
     if (currentQuestion < quizData.length - 1) { 
         currentQuestion++;
         
-        // 🌟 ظهور الدعم النفسي كل 4 أسئلة لتعزيز الاستمرارية
+        // 🌟 ظهور الدعم النفسي كل 4 أسئلة
         if (currentQuestion % 4 === 0 && currentQuestion !== 0) {
             triggerTeacherCheer();
         }
@@ -846,14 +1026,36 @@ function prevQuestion() {
     } 
 }
 
+function togglePause() {
+    const pauseModal = document.getElementById('pause-modal');
+    if (isPaused) { 
+        isPaused = false; 
+        if(pauseModal) pauseModal.style.display = 'none'; 
+        startTimer(); 
+    } else {
+        if (pauseCount >= 3) { 
+            alert("استنفدت كل محاولات الإيقاف (3/3)!"); 
+            return; 
+        }
+        isPaused = true; 
+        pauseCount++; 
+        clearInterval(timerInterval);
+        
+        const pauseMsg = document.getElementById('pause-count-msg');
+        if(pauseMsg) pauseMsg.innerText = `استخدمت (${pauseCount} من 3) محاولات الإيقاف.`;
+        if(pauseModal) pauseModal.style.display = 'flex';
+    }
+}
+
 function startTimer() {
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
+        if (isPaused) return;
         totalSeconds--;
         let m = Math.floor(totalSeconds / 60), s = totalSeconds % 60;
         document.getElementById("timer-text").innerText = `${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
         
-        if (totalSeconds <= 300) { // آخر 5 دقايق
+        if (totalSeconds <= 300) { 
             document.getElementById("timer-box").classList.add("danger");
         }
         
@@ -887,6 +1089,14 @@ function calculateScore() {
         let score = 0;
         const reviewList = document.getElementById("review-list");
         reviewList.innerHTML = "";
+        
+        const printQList = document.getElementById("print-q-list"); 
+        printQList.innerHTML = "";
+        
+        const omrGrid = document.getElementById("omr-grid"); 
+        omrGrid.innerHTML = "";
+
+        let wrongAnswersHTML = "";
 
         quizData.forEach((item, index) => {
             const isCorrect = userAnswers[index] === item.answer;
@@ -897,6 +1107,40 @@ function calculateScore() {
                 userOptText = item.options[userAnswers[index]];
             }
             const correctOpt = item.options[item.answer];
+
+            if (!isCorrect) {
+                wrongAnswersHTML += `
+                <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid rgba(220, 38, 38, 0.2);">
+                    <div style="direction: ltr; text-align: left; font-weight: bold; color: #0F172A; margin-bottom: 8px; font-size: 16px;">Q: ${item.originalQ}</div>
+                    <div style="direction: ltr; text-align: left; color: #DC2626; font-size: 15px; margin-bottom: 4px;">❌ Student's Answer: ${userOptText}</div>
+                    <div style="direction: ltr; text-align: left; color: #059669; font-size: 15px; margin-bottom: 10px;">✅ Correct Answer: ${correctOpt}</div>
+                </div>`;
+            }
+
+            /* 🖨️ Print Master Engine Data Injection */
+            let printOptionsHTML = '<div class="print-options-grid">';
+            item.options.forEach((opt, idx) => {
+                let isCorrectOptClass = (idx === item.answer) ? 'is-correct-opt' : '';
+                printOptionsHTML += `<div class="print-opt-item ${isCorrectOptClass}"><div class="print-opt-letter">${String.fromCharCode(65 + idx)}</div><span class="print-opt-text">${opt}</span></div>`;
+            });
+            printOptionsHTML += '</div>';
+
+            let printItemHTML = `
+                <div class="print-q-item ${isCorrect ? 'ans-correct' : 'ans-wrong'}">
+                    <div class="print-q-text">${item.q}</div>
+                    ${printOptionsHTML}
+                    <div class="print-rule-box">${item.exp}</div>
+                </div>
+            `;
+            printQList.innerHTML += printItemHTML;
+
+            let omrRowHTML = `<div class="omr-row"><div class="omr-q-num">${index + 1}.</div><div class="omr-bubbles">`;
+            for(let b=0; b<4; b++){
+                let isCorrectBubble = (b === item.answer) ? 'is-correct-bubble' : '';
+                omrRowHTML += `<div class="omr-bubble ${isCorrectBubble}">${String.fromCharCode(65 + b)}</div>`;
+            }
+            omrRowHTML += `</div></div>`;
+            omrGrid.innerHTML += omrRowHTML;
 
             const div = document.createElement("div");
             div.className = `review-item ${isCorrect ? 'is-correct' : 'is-wrong'}`;
@@ -935,14 +1179,15 @@ function calculateScore() {
 
         if(typeof emailjs !== 'undefined') {
             emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                quiz_name: "Academic Challenge 40Q",
+                quiz_name: "Academic Challenge - REL CLAUSES 40Q",
                 student_name: studentName, 
                 score: `${score}/${quizData.length}`, 
                 percentage: `${percent}%`, 
-                date_time: new Date().toLocaleString('ar-EG')
+                date_time: new Date().toLocaleString('ar-EG'),
+                wrongAnswers: wrongAnswersHTML
             });
         }
-        if (percent >= 80 && typeof confetti === 'function') confetti({ particleCount: 300, spread: 150, origin: { y: 0.6 }, colors: ['#0F172A', '#B48600', '#F8FAFC'] });
+        if (percent >= 80 && typeof confetti === 'function') confetti({ particleCount: 300, spread: 150, origin: { y: 0.6 }, colors: ['#0F172A', '#B48600', '#F8FAFC'], zIndex: 999999 });
         
     } catch(e) {
         console.error("حدث خطأ في حساب النتيجة:", e);
@@ -950,7 +1195,7 @@ function calculateScore() {
 }
 
 function shareToWhatsApp() {
-    let txt = `🏛️ Academic Challenge\n👤 الطالب: ${studentName}\n📊 النتيجة: ${finalScore}/${quizData.length} (${finalPercent}%)\n✨ تم تسليم التقييم بنجاح يا مستر أيمن! 📜`;
+    let txt = `🏛️ Academic Challenge\n👤 الطالب: ${studentName}\n📊 النتيجة: ${window.finalScore}/${quizData.length} (${window.finalPercent}%)\n✨ تم تسليم التقييم بنجاح يا مستر أيمن! 📜`;
     window.open(`https://wa.me/201284749899?text=${encodeURIComponent(txt)}`, '_blank');
 }
 
@@ -960,7 +1205,6 @@ function downloadCertificate() {
     canvas.height = 700;
     const ctx = canvas.getContext('2d');
 
-    // خلفية الورق الأكاديمي
     ctx.fillStyle = "#F8FAFC";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -976,7 +1220,6 @@ function downloadCertificate() {
     ctx.fillText("ACADEMIC EXCELLENCE", 0, 70);
     ctx.restore();
 
-    // إطارات كلاسيكية صلبة
     ctx.strokeStyle = "#0F172A";
     ctx.lineWidth = 8;
     ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
@@ -1003,7 +1246,7 @@ function downloadCertificate() {
 
     ctx.fillStyle = "#059669"; 
     ctx.font = "bold 55px 'Outfit', sans-serif";
-    ctx.fillText(`${finalScore} / ${quizData.length}  (${finalPercent}%)`, canvas.width / 2, 500);
+    ctx.fillText(`${window.finalScore} / ${quizData.length}  (${window.finalPercent}%)`, canvas.width / 2, 500);
 
     ctx.fillStyle = "#0F172A";
     ctx.font = "22px 'Outfit', sans-serif";
